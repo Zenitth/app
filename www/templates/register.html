@@ -1,0 +1,27 @@
+<ion-view view-title="Inscription">
+  <ion-content class="bg-white register">
+    
+    <form ng-submit="doRegister()">
+	  	<div class="list">
+			<label class="item item-input">
+				<span class="input-label">Nom & Prénom</span>
+				<input type="text" ng-model="register.name" required>
+			</label>
+			<label class="item item-input">
+				<span class="input-label">Adresse email</span>
+				<input type="email" validate-email ng-model="register.email" required>
+			</label>
+			<label class="item item-input">
+				<span class="input-label">Mot de passe</span>
+				<input type="password" ng-model="register.pass" required>
+			</label>
+			<label class="item item-input">
+				<span class="input-label">Confirmation du mot</span>
+				<input type="password" ng-model="register.pass_confirm" required>
+			</label>
+			<input type="submit" value="C'est parti !" class="button">
+		</div>
+	</form>
+
+  </ion-content>
+</ion-view>

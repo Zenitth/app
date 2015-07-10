@@ -1,0 +1,25 @@
+<ion-view view-title="Connexion" hide-back-button="true">
+  <ion-content class="bg-white login padding">
+    
+    <ul>
+      <li class="notice" ng-repeat="e in errors">{{ e }}</li>
+    </ul>
+
+    <form>
+      <div class="list">
+      <label class="item item-input">
+        <span class="input-label">Adresse email</span>
+        <input type="text" ng-model="login.email" required>
+      </label>
+      <label class="item item-input">
+        <span class="input-label">Mot de passe</span>
+        <input type="password" ng-model="login.pass" required>
+      </label>
+      <input type="submit" value="Connexion" class="button" ng-click="doLogin()">
+    </div>
+  </form>
+  
+  <a href="#/app/register">Inscription</a>
+
+  </ion-content>
+</ion-view>
