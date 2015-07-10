@@ -9,15 +9,29 @@ angular.module('starter.controllers', [])
    * @Post form data to API
    *
    */
-  .controller('LoginCtrl', function($scope, security) {
+  .controller('LoginCtrl', function($scope, $http, $state, security, serialize) {
     
     $scope.login = {};
     $scope.errors = {};
 
     $scope.doLogin = function() {
-      if(security.email($scope.login.email) && security.password($scope.login.pass)) {
-        console.log('wait for login');
-        $scope.errors = {};
+      console.log($scope.login);
+      if(security.email($scope.login.email) && security.password($scope.login.password)) {
+        
+        $http({
+              method: 'POST',
+              headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+              url: 'http://zenitth.local/app_dev.php/account/logins',
+              data: serialize.serializeData($scope.login)
+            })
+            .success( function (data, status, headers, config) {
+              window.localStorage.setItem('token', JSON.stringify(data));
+              window.localStorage.setItem('isConnected', true);
+              $state.go('app.query');
+            })
+            .error( function(data, status, headers, config) {
+              $scope.error = data;
+            });
       } else {
         $scope.errors = {'error': 'Email ou mot de passe invalide.'};
       }
