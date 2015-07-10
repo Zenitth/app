@@ -6,7 +6,7 @@
 // 'starter.controllers' is found in controllers.js
 angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
 
-.run(function($ionicPlatform, $rootScope, $state) {
+.run(function($ionicPlatform, $rootScope, $state, $http) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -22,23 +22,61 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
   $rootScope.$on("$stateChangeStart", function(event, toState, toParams, fromState, fromParams){
     
     if (toState.authenticate) {
-      if (null !== window.localStorage.getItem('isConnected')) {
+      // If connected
+      if (window.localStorage.getItem('isConnected')) {
         token = JSON.parse(window.localStorage.getItem('token'));
-        expire = token.expire;
 
-        if (expire < Date.now()) {
-          console.log(toState.name);
+        // If accessToken
+        if (null !== window.localStorage.getItem('accessToken')) {
+
+          accessToken = JSON.parse(window.localStorage.getItem('accessToken'));
+          expire = accessToken.expire;
+
+          // if date is expired
+          if (expire < Date.now()) {
+
+            // refresh token
+            expire = new Date().getTime() + (3600*1000);
+            getter = "http://zenitth.local/app_dev.php/oauth/v2/token?client_id=" + token.clientId + "&client_secret=" + token.secretId + "&grant_type=refresh_token&refresh_token=" + accessToken.refreshToken;
+            $http.get(getter).success( function(data, status, headers, config) {
+              accessTokens = angular.toJson({
+                'token': data.access_token, 
+                'refreshToken': data.refresh_token, 
+                'expire': expire
+              });
+
+              window.localStorage.setItem('accessToken', accessTokens);
+              $state.go(toState.name);
+
+            });
+
+            console.log(toState.name);
+          } else {
+            return true;
+          }
         } else {
-          $state.go(toState.name);
+
+          // Get access token
+          expire = new Date().getTime() + (3600*1000);
+          getter = "http://zenitth.local/app_dev.php/oauth/v2/token?grant_type=http://zenitth.com/grants/api_key&client_id=" + 
+          token.clientId + "&client_secret=" + token.secretId + "&api_key=" + token.key;
+
+          $http.get(getter).success( function(data, status, headers, config) {
+            accessToken = angular.toJson({
+              'token': data.access_token, 
+              'refreshToken': data.refresh_token, 
+              'expire': expire
+            });
+
+            window.localStorage.setItem('accessToken', accessToken);
+            $state.go(toState.name);
+          });
+          
         }
       } else {
         $state.go("app.login");
       }
       event.preventDefault(); 
-    }
-
-    if (toState.authenticate) {
-      
     }
      
   });

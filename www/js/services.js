@@ -80,4 +80,13 @@ angular.module('starter.services', [])
 			    return( source ); 
 			}
 		}
+	})
+
+	/**
+	 * Auth service
+	 *
+	 */
+	.factory('auth', function() {
+
+		return {}
 	});

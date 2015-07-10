@@ -30,7 +30,7 @@ angular.module('starter.controllers', [])
    * @Post form data to API
    *
    */
-  .controller('RegisterCtrl', function($scope, $stateParams, $http, security, serialize) {
+  .controller('RegisterCtrl', function($scope, $stateParams, $http, $state, security, serialize) {
 
     var verifiedDatas = ['username', 'email', 'password', 'password_confirm', 'birthday', 'sex'];
     $scope.register = {};
@@ -51,6 +51,8 @@ angular.module('starter.controllers', [])
             })
             .success( function (data, status, headers, config) {
               window.localStorage.setItem('token', JSON.stringify(data));
+              window.localStorage.setItem('isConnected', true);
+              $state.go('app.query');
             })
             .error( function(data, status, headers, config) {
               $scope.error = data;
