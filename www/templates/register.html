@@ -1,25 +1,36 @@
 <ion-view view-title="Inscription">
-  <ion-content class="bg-white register">
+  <ion-content class="bg-white register padding">
     
-    <form ng-submit="doRegister()">
+    <form>
 	  	<div class="list">
 			<label class="item item-input">
-				<span class="input-label">Nom & Prénom</span>
-				<input type="text" ng-model="register.name" required>
+				<span class="input-label">Pseudo</span>
+				<input type="text" ng-model="register.username" required>
 			</label>
 			<label class="item item-input">
 				<span class="input-label">Adresse email</span>
-				<input type="email" validate-email ng-model="register.email" required>
+				<input type="text" validate-email ng-model="register.email" required>
 			</label>
 			<label class="item item-input">
 				<span class="input-label">Mot de passe</span>
-				<input type="password" ng-model="register.pass" required>
+				<input type="password" ng-model="register.password" required>
 			</label>
 			<label class="item item-input">
 				<span class="input-label">Confirmation du mot</span>
-				<input type="password" ng-model="register.pass_confirm" required>
+				<input type="password" ng-model="register.password_confirm" required>
 			</label>
-			<input type="submit" value="C'est parti !" class="button">
+			<label class="item item-input">
+				<span class="input-label">Date de naissance (JJ/MM/AAAA)</span>
+				<input type="text" ng-model="register.birthday" required>
+			</label>
+			<label class="item item-input">
+				<span class="input-label">Sexe</span>
+				<select ng-model="register.sex">
+					<option value="femme">Femme</option>
+					<option value="homme">Homme</option>
+				</select>
+			</label>
+			<input type="submit" value="S'inscrire" class="button" ng-click="doRegister()">
 		</div>
 	</form>
 

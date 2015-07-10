@@ -65,6 +65,16 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
     }
   })
 
+  .state('app.register', {
+    url: "/register",
+    views: {
+      'menuContent': {
+        templateUrl: "templates/register.html",
+        controller: 'RegisterCtrl'
+      }
+    }
+  })
+
   .state('app.query', {
     url: "/query",
     authenticate: true,
