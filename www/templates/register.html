@@ -24,6 +24,12 @@
 				<input type="text" ng-model="register.birthday" required>
 			</label>
 			<label class="item item-input">
+				<span class="input-label">Marque favorite</span>
+				<select ng-model="register.brand">
+					<option ng-repeat="brand in brands" value="{{ brand.id }}">{{ brand.nom }}</option>
+				</select>
+			</label>
+			<label class="item item-input">
 				<span class="input-label">Sexe</span>
 				<select ng-model="register.sex">
 					<option value="femme">Femme</option>

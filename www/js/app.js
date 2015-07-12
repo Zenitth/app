@@ -4,7 +4,7 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
+angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', 'ngCordova'])
 
 .run(function($ionicPlatform, $rootScope, $state, $http) {
   $ionicPlatform.ready(function() {
@@ -71,7 +71,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
             window.localStorage.setItem('accessToken', accessToken);
             $state.go(toState.name);
           });
-          
+
         }
       } else {
         $state.go("app.login");
@@ -124,13 +124,13 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
     }
   })
 
-  .state('app.playlists', {
-    url: "/playlists",
+  .state('app.dashboard', {
+    url: "/dashboard",
     authenticate: true,
     views: {
       'menuContent': {
-        templateUrl: "templates/playlists.html",
-        controller: 'PlaylistsCtrl'
+        templateUrl: "templates/dashboard.html",
+        controller: 'DashboardCtrl'
       }
     }
   })
@@ -145,5 +145,5 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
     }
   });
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/app/');
+  $urlRouterProvider.otherwise('/app/query');
 });

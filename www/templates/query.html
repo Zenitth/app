@@ -1,5 +1,12 @@
 <ion-view view-title="Question">
-  <ion-content>
+  <ion-content class="padding">
     <h1>Question</h1>
+
+    <h2>{{ currentQuestion.question }}</h2>
+
+    <div class="answers-wrapper">
+    	<a href="" ng-repeat="a in currentQuestion.answers" ng-click="selectQuestion(a)">{{ a.answer }}</a>
+    </div>
+
   </ion-content>
 </ion-view>
