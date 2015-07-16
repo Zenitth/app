@@ -21,7 +21,7 @@ angular.module('starter.controllers', [])
         $http({
               method: 'POST',
               headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-              url: 'http://192.168.0.11/zenitth/zenitth-server/web/account/logins',
+              url: 'http://zenitth.local/app_dev.php/account/logins',
               data: serialize.serializeData($scope.login)
             })
             .success( function (data, status, headers, config) {
@@ -60,7 +60,7 @@ angular.module('starter.controllers', [])
 
     $http({
         method: 'GET',
-        url: 'http://192.168.0.11/zenitth/zenitth-server/web/account/brands'
+        url: 'http://zenitth.local/app_dev.php/account/brands'
       })
       .success( function (data, status, headers, config) {
         $scope.brands = data;
@@ -80,7 +80,7 @@ angular.module('starter.controllers', [])
             $http({
               method: 'POST',
               headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-              url: 'http://192.168.0.11/zenitth/zenitth-server/web/account/registers',
+              url: 'http://zenitth.local/app_dev.php/account/registers',
               data: serialize.serializeData($scope.register)
             })
             .success( function (data, status, headers, config) {
@@ -102,21 +102,27 @@ angular.module('starter.controllers', [])
    * @Get Question related to current user
    *
    */
-  .controller('QueryCtrl', function($scope, $stateParams, $state, $http, $ionicPopup, $ionicHistory, serialize) {
+  .controller('QueryCtrl', function($scope, $stateParams, $timeout, $state, $http, $ionicPopup, $ionicHistory, serialize) {
 
-    currentId = 0;
-    currentPts = 0;
+    $scope.currentId = 0;
+    $scope.currentPts = 0;
     $scope.questions = {};
     $scope.currentQuestion = {};
     $scope.answerStatus = "";
-    access_token = JSON.parse(window.localStorage.getItem('accessToken')).token;
+    $scope.timerStyle = {};
+    $scope.selectedResponse = "";
+    $scope.selectedIndex = -1;
+    $scope.isWin = -1;
+    $scope.end = false;
 
+    access_token = JSON.parse(window.localStorage.getItem('accessToken')).token;
     $http({
       method: 'GET',
-      url: 'http://192.168.0.11/zenitth/zenitth-server/web/api/quizz?access_token=' + access_token,
+      url: 'http://zenitth.local/app_dev.php/api/quizz?access_token=' + access_token,
     })
     .success( function (data, status, headers, config) {
-      $scope.questions = data;
+      $scope.questions = data.questions;
+      $scope.user = data.user[0];
       $scope.launch();
     })
     .error( function(data, status, headers, config) {
@@ -124,72 +130,68 @@ angular.module('starter.controllers', [])
     });
 
     $scope.launch = function() {
-      $scope.currentQuestion = $scope.questions[currentId];
-      console.log($scope.questions[currentId]);
+      $scope.isWin = -1;
+      console.log($scope.questions[$scope.currentId]);
+      $scope.currentQuestion = $scope.questions[$scope.currentId];
+      $scope.timerStart();
     }
 
-    $scope.selectQuestion = function(a) {
-
-      if (a.is_true) {
-        $scope.answerStatus = "Bonne réponse !";
-        currentPts = currentPts + 5;
-      } else {
-        cureentAnswer = $scope.questions[currentId].answers;
-        goodAnswer = _.where(cureentAnswer, {is_true : true});
-
-        if (typeof goodAnswer[0] !== 'undefined') {
-          $scope.answerStatus = "<p>Mauvaise réponse !</p> <p>La bonne réponse était : " + goodAnswer[0].answer + "</p>";
+    $scope.timerStart = function() {
+      $scope.timerStyle = {'width' : '100%'};
+      timer = $timeout( function() {
+        if ($scope.selectedResponse.is_true) {
+          console.log('win');
+          $scope.currentPts = $scope.currentPts + 5;
+          $scope.user.score = $scope.user.score +5;
+          $scope.isWin = true;
         } else {
-          $scope.answerStatus = "<p>Mauvaise réponse !</p>";
+          console.log('loose');
+          $scope.isWin = false;
         }
-      }
+        $scope.timerStyle = {'webkitAnimationPlayState' : 'initial', 'transition-duration' : '0s'};
+      }, 5000);
+    }
 
-      
-      console.log("Total Pts : " + currentPts);
-      currentId++;
-
-      if (currentId < $scope.questions.length) {
-        $scope.check();
-      } else {
-        $scope.done();
-      }
+    $scope.valid = function(a, index) {
+      $scope.selectedResponse = a;
+      $scope.selectedIndex = index;
     }
 
     $scope.done = function() {
-      var alertPopup = $ionicPopup.alert({
-        title: 'Vous avez fini !',
-        template: 'Vous avez gagné ' + currentPts + ' Points.'
-      });
-      alertPopup.then(function(res) {
-
-        access_token = JSON.parse(window.localStorage.getItem('accessToken')).token;
-        $http({
-          method: 'POST',
-          headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-          url: 'http://192.168.0.11/zenitth/zenitth-server/web/api/scores?access_token=' + access_token,
-          data: serialize.serializeData({'score' : currentPts })
-        })
-        .success( function (data, status, headers, config) {
-          $ionicHistory.nextViewOptions({
-            disableAnimate: true,
-            disableBack: true
-          });
-          $state.go('app.dashboard');
-        })
-        .error( function(data, status, headers, config) {
-          $scope.error = data;
-        });
-      });
+      $scope.end = true;
     };
 
-    $scope.check = function() {
-      var alertPopup = $ionicPopup.alert({
-        title: 'Réponse',
-        template: $scope.answerStatus
+    $scope.finish = function() {
+      access_token = JSON.parse(window.localStorage.getItem('accessToken')).token;
+      $http({
+        method: 'POST',
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+        url: 'http://zenitth.local/app_dev.php/api/scores?access_token=' + access_token,
+        data: serialize.serializeData({'score' : $scope.currentPts })
+      })
+      .success( function (data, status, headers, config) {
+        $ionicHistory.nextViewOptions({
+          disableAnimate: true,
+          disableBack: true
+        });
+        $state.go('app.dashboard');
+      })
+      .error( function(data, status, headers, config) {
+        $scope.error = data;
       });
-      alertPopup.then(function(res) {
+    } 
+
+    $scope.next = function() {
+      $scope.currentId++;
+      console.log($scope.currentId);
+      $scope.selectedIndex = -1;
+      $scope.selectedResponse = "";
+      
+      if ($scope.currentId < $scope.questions.length) {
         $scope.launch();
-      });
+      } else {
+        $scope.done();
+      }
     };
 
   })
@@ -205,7 +207,7 @@ angular.module('starter.controllers', [])
     access_token = JSON.parse(window.localStorage.getItem('accessToken')).token;
     $http({
       method: 'GET',
-      url: 'http://192.168.0.11/zenitth/zenitth-server/web/api/dashboard?access_token=' + access_token,
+      url: 'http://zenitth.local/app_dev.php/api/dashboard?access_token=' + access_token,
     })
     .success( function (data, status, headers, config) {
      console.log(data);
@@ -225,11 +227,12 @@ angular.module('starter.controllers', [])
   .controller('DefiCtrl', function($scope, $stateParams, $state, $http, serialize) {
 
     $scope.defi = {};
+    $scope.selected = "";
 
     access_token = JSON.parse(window.localStorage.getItem('accessToken')).token;
     $http({
       method: 'GET',
-      url: 'http://192.168.0.11/zenitth/zenitth-server/web/api/defi/question?access_token=' + access_token,
+      url: 'http://zenitth.local/app_dev.php/api/defi/question?access_token=' + access_token,
     })
     .success( function (data, status, headers, config) {
      $scope.defi = data;
@@ -241,11 +244,15 @@ angular.module('starter.controllers', [])
 
 
     $scope.validateDefi = function(id) {
+      $scope.selected = id;
+    }
+
+    $scope.end = function() {
       $http({
         method: 'POST',
         headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-        url: 'http://192.168.0.11/zenitth/zenitth-server/web/api/defis/validates?access_token=' + access_token,
-        data: serialize.serializeData({'userTo' : $scope.defi.userTo.id, 'question' : id })
+        url: 'http://zenitth.local/app_dev.php/api/defis/validates?access_token=' + access_token,
+        data: serialize.serializeData({'userTo' : $scope.defi.userTo.id, 'question' : $scope.selected })
       })
       .success( function (data, status, headers, config) {
        console.log(data);
@@ -268,7 +275,7 @@ angular.module('starter.controllers', [])
     access_token = JSON.parse(window.localStorage.getItem('accessToken')).token;
     $http({
       method: 'GET',
-      url: 'http://192.168.0.11/zenitth/zenitth-server/web/api/notifications?access_token=' + access_token,
+      url: 'http://zenitth.local/app_dev.php/api/notifications?access_token=' + access_token,
     })
     .success( function (data, status, headers, config) {
      $scope.notifications = data;
@@ -294,7 +301,7 @@ angular.module('starter.controllers', [])
     access_token = JSON.parse(window.localStorage.getItem('accessToken')).token;
     $http({
       method: 'GET',
-      url: 'http://192.168.0.11/zenitth/zenitth-server/web/api/defis/' + id + '?access_token=' + access_token,
+      url: 'http://zenitth.local/app_dev.php/api/defis/' + id + '?access_token=' + access_token,
     })
     .success( function (data, status, headers, config) {
      $scope.defi = data;
@@ -330,13 +337,13 @@ angular.module('starter.controllers', [])
     }
 
     $scope.timerStart = function() {
+      $scope.timerStyle = {'width' : '100%'};
       timer = $timeout( function() {
         $scope.response();
         $interval.cancel(interval);
       }, 6000);
       interval = $interval(function() {
         $scope.time++;
-        $scope.timerStyle = {'width' : ($scope.time * 20) + '%'};
       }, 1000);
     }
 
@@ -358,7 +365,7 @@ angular.module('starter.controllers', [])
       $http({
         method: 'POST',
         headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-        url: 'http://192.168.0.11/zenitth/zenitth-server/web/api/responses/defis?access_token=' + access_token,
+        url: 'http://zenitth.local/app_dev.php/api/responses/defis?access_token=' + access_token,
         data: serialize.serializeData(data)
       })
       .success( function (data, status, headers, config) {
@@ -377,7 +384,7 @@ angular.module('starter.controllers', [])
     $scope.defi = {};
     $http({
       method: 'GET',
-      url: 'http://192.168.0.11/zenitth/zenitth-server/web/api/defis/' + id + '?access_token=' + access_token,
+      url: 'http://zenitth.local/app_dev.php/api/defis/' + id + '?access_token=' + access_token,
     })
     .success( function (data, status, headers, config) {
       $scope.defi = data;

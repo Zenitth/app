@@ -1,15 +1,28 @@
-<ion-view view-title="Défi">
-  <ion-content class="padding">
-    <h1>Défi</h1>
+<ion-view view-title="Defi" class="defi" hide-back-button="true" hide-nav-bar="true" cache-view="false">
+  <h1>Défi<a href="#/app/dashboard" class="left" nav-transition="none"><i class="ion-ios-arrow-back"></i></a></h1>
+  
+  <ion-content class="">
 
-    <p>Vous allez défier un fan de {{ defi.userTo.user_brand.nom }}</p>
+    <h3>Vous allez défier</h3>
     <div class="user-to-defi">
-    	<h3>{{ defi.userTo.username }}</h3>
-    	<p>{{ defi.userTo.score }} Pts</p>
+        <img src="img/avatars/geek.png">
+    	<p>{{ defi.userTo.username }}</p>
+    	<p><span>{{ defi.userTo.score }} Pts</span></p>
     </div>
-    <h2>Choisissez une question à lui poser</h2>
 
-    <button class="btn" ng-repeat="question in defi.questions" ng-click="validateDefi(question.id)">{{ question.question }}</button>
+    <div class="questions">
+        <h3>Choisissez une question à lui poser</h3>
+
+        <ul>
+            <li class="clearfix" ng-repeat="question in defi.questions">
+              <a class="clearfix" ng-click="validateDefi(question.id)" ng-class="{'selected' : question.id == selected}">
+                <p>{{ question.question }}</p> 
+              </a>
+            </li>
+      </ul>
+      <a ng-click="end()" class="button red">Terminer</a>
+    </div>
+
 
   </ion-content>
 </ion-view>

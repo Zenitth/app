@@ -1,12 +1,61 @@
-<ion-view view-title="Question" cache-view="false">
-  <ion-content class="padding">
-    <h1>Question</h1>
-
-    <h2>{{ currentQuestion.question }}</h2>
-
-    <div class="answers-wrapper">
-    	<a href="" ng-repeat="a in currentQuestion.answers" ng-click="selectQuestion(a)">{{ a.answer }}</a>
+<ion-view view-title="Question" class="quizz" cache-view="false">
+  <h1 class="clearfix">
+  	<div class="_60">
+  		<a href="#/app/dashboard" class="left" nav-transition="none"><i class="ion-ios-arrow-back"></i></a>
+  	</div>
+    <div class="_40">
+      <img src="img/avatars/geek.png">
+      <p class="user">{{ user.username }}</p>
+      <p class="score">{{ user.score }} Pts</p>
     </div>
+  </h1>
+
+  <ion-content class="">
+  	<ul class="timeline clearfix padding">
+  		<li ng-repeat="t in questions" ng-class="{'active' : $index == currentId}"></li>
+  	</ul>
+	<h3 class="quizz">{{ currentQuestion.question }}</h3>
+
+    <div class="timer row">
+      <i class="ion-ios-stopwatch-outline col"></i>
+      <div class="col col-90">
+      	<div class="loader-wrapper">
+        	<div class="loader " ng-style="timerStyle"></div>
+        </div>
+      </div>
+    </div>
+    <div class="questions" ng-show="isWin == -1  && end == false">
+
+	   <ul>
+        <li class="clearfix" ng-repeat="answer in currentQuestion.answers">
+          <a class="clearfix" ng-class="{'selected': $index==selectedIndex}" ng-click="valid(answer, $index)">
+            <span>{{ $index + 1 }}</span> 
+            <p>{{ answer.answer }}</p>
+          </a>
+        </li>
+      </ul>
+	</div>
+
+	<div class="response" ng-show="(isWin == true || isWin == false) && end == false">
+      <div class="win" ng-show="isWin == true">
+        <h4>Bonne réponse !</h4>
+        <p>Vous gagnez</p>
+        <p><span>15</span> pts</p>
+      </div>
+
+      <div class="loose" ng-show="isWin == false">
+        <h4>Mauvaise réponse !</h4>
+      </div>
+
+      <a href="" ng-click="next()" class="button blue">Suivant</a>
+   </div>
+
+   <div class="end" ng-show="end == true">
+   		<h4>Le quiz est terminé</h4>
+      <p>Vous gagnez</p>
+      <p><span>{{ currentPts }}</span> pts</p>
+      <a href="" ng-click="finish()" class="button blue">Terminer</a>
+   </div>
 
   </ion-content>
 </ion-view>

@@ -8882,6 +8882,10 @@ ion-content .button {
     background: #f93e5d; }
   ion-content .button.blue {
     background: #19263f; }
+  ion-content .button.full {
+    width: 100%; }
+  ion-content .button.margin-50 {
+    margin-top: 50px; }
 
 .dashboard h1 {
   color: red; }
@@ -8941,7 +8945,9 @@ ion-content .button {
 
 .notifications h1,
 .request-defi h1,
-.defi-question h1 {
+.defi-question h1,
+.quizz h1,
+.defi h1 {
   color: white;
   font-size: 1.3rem;
   padding: 15px 15px;
@@ -8952,18 +8958,24 @@ ion-content .button {
   background: #1c263f; }
   .notifications h1 a,
   .request-defi h1 a,
-  .defi-question h1 a {
+  .defi-question h1 a,
+  .quizz h1 a,
+  .defi h1 a {
     color: white;
     font-size: 2.1rem;
     margin-top: -4px;
     line-height: 1; }
     .notifications h1 a.right,
     .request-defi h1 a.right,
-    .defi-question h1 a.right {
+    .defi-question h1 a.right,
+    .quizz h1 a.right,
+    .defi h1 a.right {
       float: right; }
     .notifications h1 a.left,
     .request-defi h1 a.left,
-    .defi-question h1 a.left {
+    .defi-question h1 a.left,
+    .quizz h1 a.left,
+    .defi h1 a.left {
       float: left; }
 
 .notifications {
@@ -9050,54 +9062,112 @@ ion-content .button {
     text-decoration: none;
     background: #f93e5d; }
 
-.defi-question h1 div {
+.defi-question h1 div,
+.quizz h1 div {
   float: left;
   text-align: left; }
-  .defi-question h1 div img {
+  .defi-question h1 div img,
+  .quizz h1 div img {
     width: 30px;
     height: auto;
     float: left;
     margin: 0 8px 0 0; }
-  .defi-question h1 div:last-child {
+  .defi-question h1 div:last-child,
+  .quizz h1 div:last-child {
     text-align: right; }
-    .defi-question h1 div:last-child img {
+    .defi-question h1 div:last-child img,
+    .quizz h1 div:last-child img {
       margin: 0 0 0 8px;
       float: right; }
-  .defi-question h1 div p.user {
+  .defi-question h1 div p.user,
+  .quizz h1 div p.user {
     font-size: 0.9rem;
     margin-bottom: 2px; }
-  .defi-question h1 div p.score {
+  .defi-question h1 div p.score,
+  .quizz h1 div p.score {
     font-size: 0.9rem;
     margin-bottom: 0;
     font-weight: 600; }
-.defi-question h1 ._40 {
+.defi-question h1 ._40,
+.quizz h1 ._40 {
   width: 40%; }
-.defi-question h1 ._20 {
+.defi-question h1 ._60,
+.quizz h1 ._60 {
+  width: 60%; }
+.defi-question h1 ._20,
+.quizz h1 ._20 {
   width: 20%;
   text-align: center;
   line-height: 1.8rem;
   font-weight: bold; }
-.defi-question ion-content {
+.defi-question h1 .right,
+.quizz h1 .right {
+  text-align: right; }
+.defi-question ion-content,
+.quizz ion-content {
   top: 55px;
   background: url(../img/backgrounds/home.jpg) no-repeat center center;
   background-size: cover; }
-  .defi-question ion-content h3 {
+  .defi-question ion-content h3,
+  .quizz ion-content h3 {
     margin: 50px 0 40px;
     padding: 0 30px;
     text-align: center;
     font-size: 1.2rem;
     line-height: 1.5rem;
-    font-weight: 200;
+    font-weight: 600;
     color: white; }
-  .defi-question ion-content .questions {
+    .defi-question ion-content h3.quizz,
+    .quizz ion-content h3.quizz {
+      margin: 20px 0 40px; }
+  .defi-question ion-content ul.timeline,
+  .quizz ion-content ul.timeline {
+    list-style: none;
+    width: 260px;
+    margin: 15px auto; }
+    .defi-question ion-content ul.timeline li,
+    .quizz ion-content ul.timeline li {
+      width: 15px;
+      height: 15px;
+      float: left;
+      border: 2px solid white;
+      border-radius: 50%;
+      margin-right: 10px;
+      -webkit-transition: all 500ms cubic-bezier(0.25, 0.25, 0.75, 0.75);
+      -moz-transition: all 500ms cubic-bezier(0.25, 0.25, 0.75, 0.75);
+      -o-transition: all 500ms cubic-bezier(0.25, 0.25, 0.75, 0.75);
+      transition: all 500ms cubic-bezier(0.25, 0.25, 0.75, 0.75); }
+      .defi-question ion-content ul.timeline li.active,
+      .quizz ion-content ul.timeline li.active {
+        background: #f93e5d; }
+      .defi-question ion-content ul.timeline li:after,
+      .quizz ion-content ul.timeline li:after {
+        display: block;
+        width: 15px;
+        height: 50%;
+        border-bottom: 1px solid white;
+        box-sizing: border-box;
+        margin-left: 11px;
+        content: ""; }
+      .defi-question ion-content ul.timeline li:last-child,
+      .quizz ion-content ul.timeline li:last-child {
+        margin-right: 0; }
+        .defi-question ion-content ul.timeline li:last-child:after,
+        .quizz ion-content ul.timeline li:last-child:after {
+          content: none; }
+  .defi-question ion-content .questions,
+  .quizz ion-content .questions {
     padding: 20px;
     background: white; }
-    .defi-question ion-content .questions ul li {
+    .defi-question ion-content .questions ul li,
+    .quizz ion-content .questions ul li {
       background: #f3f3f3;
       margin-bottom: 8px; }
-      .defi-question ion-content .questions ul li a {
+      .defi-question ion-content .questions ul li a,
+      .quizz ion-content .questions ul li a {
         display: block; }
-        .defi-question ion-content .questions ul li a span {
+        .defi-question ion-content .questions ul li a span,
+        .quizz ion-content .questions ul li a span {
           color: white;
           background: #1c263f;
           display: block;
@@ -9105,38 +9175,130 @@ ion-content .button {
           font-weight: bold;
           font-size: 1.2rem;
           text-transform: uppercase;
-          float: left; }
-        .defi-question ion-content .questions ul li a p {
+          float: left;
+          -webkit-transition: all 500ms cubic-bezier(0.25, 0.25, 0.75, 0.75);
+          -moz-transition: all 500ms cubic-bezier(0.25, 0.25, 0.75, 0.75);
+          -o-transition: all 500ms cubic-bezier(0.25, 0.25, 0.75, 0.75);
+          transition: all 500ms cubic-bezier(0.25, 0.25, 0.75, 0.75); }
+        .defi-question ion-content .questions ul li a p,
+        .quizz ion-content .questions ul li a p {
           font-size: 1.2rem;
           font-weight: 200;
           margin: 0 0 0 60px;
           line-height: 2.2rem; }
-        .defi-question ion-content .questions ul li a.selected span {
+        .defi-question ion-content .questions ul li a.selected span,
+        .quizz ion-content .questions ul li a.selected span {
           background: #f93e5d; }
-    .defi-question ion-content .questions .timer i {
+  .defi-question ion-content .timer,
+  .quizz ion-content .timer {
+    background: white;
+    padding: 20px 20px 10px;
+    margin-bottom: -1px; }
+    .defi-question ion-content .timer i,
+    .quizz ion-content .timer i {
       float: left;
       font-size: 1.4rem;
-      line-height: 1.9rem; }
-    .defi-question ion-content .questions .timer .loader {
+      margin-top: -6px; }
+    .defi-question ion-content .timer .loader-wrapper,
+    .quizz ion-content .timer .loader-wrapper {
+      background: #ebebeb;
+      box-sizing: border-box; }
+    .defi-question ion-content .timer .loader,
+    .quizz ion-content .timer .loader {
       width: 0;
       height: 10px;
-      margin-top: 10px;
-      background: #f93e5d; }
-  .defi-question ion-content .response {
+      background: #f93e5d;
+      -webkit-transition: width 5000ms cubic-bezier(0.25, 0.25, 0.75, 0.75);
+      -moz-transition: width 5000ms cubic-bezier(0.25, 0.25, 0.75, 0.75);
+      -o-transition: width 5000ms cubic-bezier(0.25, 0.25, 0.75, 0.75);
+      transition: width 5000ms cubic-bezier(0.25, 0.25, 0.75, 0.75); }
+  .defi-question ion-content .response,
+  .defi-question ion-content .end,
+  .quizz ion-content .response,
+  .quizz ion-content .end {
     padding: 20px;
     background: white;
     font-size: 1.1rem;
     text-align: center; }
-    .defi-question ion-content .response .button {
+    .defi-question ion-content .response .button,
+    .defi-question ion-content .end .button,
+    .quizz ion-content .response .button,
+    .quizz ion-content .end .button {
       margin: 15px auto; }
-    .defi-question ion-content .response h4 {
+    .defi-question ion-content .response h4,
+    .defi-question ion-content .end h4,
+    .quizz ion-content .response h4,
+    .quizz ion-content .end h4 {
       font-weight: bold;
       font-size: 1.1rem;
       margin: 8px 0; }
-    .defi-question ion-content .response p {
+    .defi-question ion-content .response p,
+    .defi-question ion-content .end p,
+    .quizz ion-content .response p,
+    .quizz ion-content .end p {
       font-weight: 200;
       margin: 0; }
-      .defi-question ion-content .response p span {
+      .defi-question ion-content .response p span,
+      .defi-question ion-content .end p span,
+      .quizz ion-content .response p span,
+      .quizz ion-content .end p span {
         color: #f93e5d; }
+
+.defi ion-content {
+  top: 55px;
+  background: url(../img/backgrounds/home.jpg) no-repeat center center;
+  background-size: cover; }
+  .defi ion-content h3 {
+    color: white;
+    font-weight: 200;
+    text-align: center;
+    font-size: 1.5rem;
+    margin-top: 20px; }
+  .defi ion-content .user-to-defi {
+    text-align: center;
+    margin-top: 20px; }
+    .defi ion-content .user-to-defi img {
+      width: 80px;
+      margin-bottom: 10px;
+      font-weight: 200; }
+  .defi ion-content p {
+    font-size: 1.3rem;
+    color: white;
+    font-weight: 200; }
+    .defi ion-content p span {
+      font-weight: 400;
+      font-size: 1.1rem; }
+  .defi ion-content .questions {
+    padding: 20px;
+    background: white; }
+    .defi ion-content .questions h3 {
+      color: black;
+      font-size: 1.2rem;
+      margin: 0 0 20px; }
+    .defi ion-content .questions ul {
+      margin-bottom: 20px; }
+      .defi ion-content .questions ul li {
+        background: #f3f3f3;
+        margin-bottom: 5px; }
+        .defi ion-content .questions ul li a {
+          display: block; }
+          .defi ion-content .questions ul li a p {
+            width: 100%;
+            color: black;
+            background: transparent;
+            display: block;
+            padding: 10px 14px;
+            font-weight: normal;
+            font-size: 1.1rem;
+            float: left;
+            box-sizeing: border-box;
+            margin: 0; }
+            .defi ion-content .questions ul li a p.selected {
+              color: white;
+              background: #f93e5d; }
+          .defi ion-content .questions ul li a.selected p {
+            background: #f93e5d;
+            color: white;
+            font-weight: 600; }
 
 /*# sourceMappingURL=app.css.map */

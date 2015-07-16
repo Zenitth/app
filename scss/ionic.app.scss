@@ -36,17 +36,15 @@ ion-content {
 		font-size: 1.1rem;
 		border: none;
 
-		&:active {
-			color: white;
-		}
+		&:active { color: white; }
 
-		&.red {
-			background: #f93e5d;
-		}
+		&.red { background: #f93e5d; }
 
-		&.blue {
-			background: #19263f;
-		}
+		&.blue { background: #19263f; }
+
+		&.full { width: 100%; }
+
+		&.margin-50 { margin-top: 50px; }
 	}
 }
 
@@ -133,7 +131,9 @@ ion-content {
 
 .notifications,
 .request-defi,
-.defi-question {
+.defi-question,
+.quizz,
+.defi {
 	h1 {
 		color: white;
 		font-size: 1.3rem;
@@ -268,7 +268,8 @@ ion-content {
 	}
 }
 
-.defi-question {
+.defi-question,
+.quizz {
 
 	h1 {
 		div { 
@@ -285,7 +286,9 @@ ion-content {
 			}
 		}
 		._40 { width: 40%; }
+		._60 { width: 60%; }
 		._20 { width: 20%; text-align: center; line-height: 1.8rem; font-weight: bold; }
+		.right { text-align: right; }
 	}
 	
 	ion-content {
@@ -299,8 +302,45 @@ ion-content {
 			text-align: center;
 			font-size: 1.2rem;
 			line-height: 1.5rem;
-			font-weight: 200;
+			font-weight: 600;
 			color: white;
+
+			&.quizz { margin: 20px 0 40px; }
+		}
+
+		ul.timeline {
+			list-style: none;
+			width: 260px;
+			margin: 15px auto;
+			li {
+				width: 15px;
+				height: 15px;
+				float: left;
+				border: 2px solid white;
+				border-radius: 50%;
+				margin-right: 10px;
+				-webkit-transition: all 500ms cubic-bezier(0.250, 0.250, 0.750, 0.750); 
+			   	-moz-transition: all 500ms cubic-bezier(0.250, 0.250, 0.750, 0.750); 
+			    -o-transition: all 500ms cubic-bezier(0.250, 0.250, 0.750, 0.750); 
+			    transition: all 500ms cubic-bezier(0.250, 0.250, 0.750, 0.750);
+
+				&.active { background: #f93e5d; }
+
+				&:after {
+					display: block;
+					width: 15px;
+					height: 50%;
+					border-bottom: 1px solid white;
+					box-sizing: border-box;
+					margin-left: 11px;
+					content: "";
+				}
+
+				&:last-child { 
+					margin-right: 0; 
+					&:after { content: none; }
+				}
+			}
 		}
 
 		.questions {
@@ -322,6 +362,10 @@ ion-content {
 							font-size: 1.2rem;
 							text-transform: uppercase;
 							float: left;
+							-webkit-transition: all 500ms cubic-bezier(0.250, 0.250, 0.750, 0.750); 
+						   	-moz-transition: all 500ms cubic-bezier(0.250, 0.250, 0.750, 0.750); 
+						    -o-transition: all 500ms cubic-bezier(0.250, 0.250, 0.750, 0.750); 
+						    transition: all 500ms cubic-bezier(0.250, 0.250, 0.750, 0.750);
 						}
 						p {
 							font-size: 1.2rem;
@@ -336,22 +380,33 @@ ion-content {
 					}
 				}
 			}
-			.timer {
-				i {
-					float: left;
-					font-size: 1.4rem;
-  					line-height: 1.9rem;
-				}
-				.loader {
-					width: 0;
-					height: 10px;
-					margin-top: 10px;
-					background: #f93e5d;
-				}
+		}
+		.timer {
+				background: white;
+				padding: 20px 20px 10px;
+				margin-bottom: -1px;
+			i {
+				float: left;
+				font-size: 1.4rem;
+					margin-top: -6px;
+			}
+			.loader-wrapper {
+				background: #ebebeb;
+				box-sizing: border-box;
+			}
+			.loader {
+				width: 0;
+				height: 10px;
+				background: #f93e5d;
+				-webkit-transition: width 5000ms cubic-bezier(0.250, 0.250, 0.750, 0.750); 
+			   	-moz-transition: width 5000ms cubic-bezier(0.250, 0.250, 0.750, 0.750); 
+			    -o-transition: width 5000ms cubic-bezier(0.250, 0.250, 0.750, 0.750); 
+			    transition: width 5000ms cubic-bezier(0.250, 0.250, 0.750, 0.750);
 			}
 		}
 
-		.response {
+		.response,
+		.end {
 			padding: 20px;
 			background: white;
 			font-size: 1.1rem;
@@ -371,6 +426,87 @@ ion-content {
 
 				span {
 					color: #f93e5d;
+				}
+			}
+		}
+	}
+}
+
+.defi {
+	
+	ion-content {
+		top: 55px;
+		background: url(../img/backgrounds/home.jpg) no-repeat center center;
+		background-size: cover;
+
+		h3 {
+			color: white;
+			font-weight: 200;
+			text-align: center;
+			font-size: 1.5rem;
+			margin-top: 20px;
+		}
+
+		.user-to-defi {
+			text-align: center;
+			margin-top: 20px;
+			img {
+				width: 80px;
+				margin-bottom: 10px;
+				font-weight: 200;
+			}
+		}
+		p {
+			font-size: 1.3rem;
+			color: white;
+			font-weight: 200;
+
+			span { font-weight: 400; font-size: 1.1rem; }
+		}
+
+		.questions {
+			padding: 20px;
+			background: white;
+
+			h3 { 
+				color: black; 
+				font-size: 1.2rem;
+				margin: 0 0 20px;
+			}
+
+			ul {
+				margin-bottom: 20px;
+				li {
+					background: #f3f3f3;
+					margin-bottom: 5px;
+					a {
+						display: block;
+						p {
+							width: 100%;
+							color: black;
+							background: transparent;
+							display: block;
+							padding: 10px 14px;
+							font-weight: normal;
+							font-size: 1.1rem;
+							float: left;
+							box-sizeing: border-box;
+							margin: 0;
+
+							&.selected {
+								color: white;
+								background: #f93e5d;
+							}
+						}
+
+						&.selected { 
+							p { 
+								background: #f93e5d; 
+								color: white;
+								font-weight: 600;
+							}
+						}
+					}
 				}
 			}
 		}

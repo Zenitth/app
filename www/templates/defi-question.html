@@ -16,6 +16,13 @@
   <ion-content>
     <h3>{{ defi.question.question }}</h3>
 
+    <div class="timer row">
+      <i class="ion-ios-stopwatch-outline col"></i>
+      <div class="col col-90">
+        <div class="loader " ng-style="timerStyle"></div>
+      </div>
+    </div>
+    
     <div class="questions" ng-show="win == ''">
       <ul>
         <li class="clearfix" ng-repeat="answer in defi.question.answers">
@@ -25,12 +32,6 @@
           </a>
         </li>
       </ul>
-      <div class="timer row">
-        <i class="ion-ios-stopwatch-outline col"></i>
-        <div class="col col-90">
-          <div class="loader " ng-style="timerStyle"></div>
-        </div>
-      </div>
     </div>
 
     <div class="response" ng-show="win == 'win' || win == 'loose'">
