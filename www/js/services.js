@@ -86,7 +86,9 @@ angular.module('starter.services', [])
 	 * Auth service
 	 *
 	 */
-	.factory('auth', function() {
+	.factory('shareDataService', function() {
+
+		var selectedDefi;
 
 		return {}
 	});

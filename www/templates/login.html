@@ -1,25 +1,31 @@
-<ion-view view-title="Connexion" hide-back-button="true">
-  <ion-content class="bg-white login padding">
+<ion-view view-title="Connexion" class="login" hide-back-button="true" hide-nav-bar="true">
+  <ion-content class="login">
     
+    <div class="logo">
+      <img src="img/logo-white.png">
+    </div>
+
     <ul>
       <li class="notice" ng-repeat="e in errors">{{ e }}</li>
     </ul>
 
     <form>
-      <div class="list">
-      <label class="item item-input">
-        <span class="input-label">Adresse email</span>
-        <input type="text" ng-model="login.email" required>
-      </label>
-      <label class="item item-input">
-        <span class="input-label">Mot de passe</span>
-        <input type="password" ng-model="login.password" required>
-      </label>
-      <input type="submit" value="Connexion" class="button" ng-click="doLogin()">
-    </div>
+      <div>
+        <i class="ion-person"></i>
+        <input type="text" ng-model="login.email" placeholder="Adresse email" required>
+      </div>
+      <div>
+        <i class="ion-key"></i>
+        <input type="password" ng-model="login.password" placeholder="Mot de passe"  required>
+      </div>
+      <a href="">Mot de passe oublié</a>
+      <input type="submit" value="Connexion" class="button red" ng-click="doLogin()">
   </form>
   <!-- <a href="#" ng-click="facebookLogin()">logIn with Facebook</a> -->
-  <a href="#/app/register">Inscription</a>
+  <p class="inscription">
+    <span>Vous n'avez pas encore de compte ? </span>
+    <a href="#/app/register">S'enregistrer</a>
+  </p>
 
   </ion-content>
 </ion-view>

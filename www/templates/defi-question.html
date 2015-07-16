@@ -1,0 +1,57 @@
+<ion-view view-title="Défi" class="defi-question" hide-back-button="true" cache-view="false">
+  <h1 class="clearfix">
+    <div class="_40">
+      <img src="img/avatars/geek.png">
+      <p class="user">{{ defi.user_to.username }}</p>
+      <p class="score">{{ defi.user_to.score }} Pts</p>
+    </div>
+    <div class="_20">VS</div>
+    <div class="_40">
+      <img src="img/avatars/geek.png">
+      <p class="user">{{ defi.user_from.username }}</p>
+      <p class="score">{{ defi.user_from.score }} Pts</p>
+    </div>
+  </h1>
+  
+  <ion-content>
+    <h3>{{ defi.question.question }}</h3>
+
+    <div class="questions" ng-show="win == ''">
+      <ul>
+        <li class="clearfix" ng-repeat="answer in defi.question.answers">
+          <a class="clearfix" ng-class="{'selected': $index==selectedIndex}" ng-click="valid(answer, $index)">
+            <span>{{ $index + 1 }}</span> 
+            <p>{{ answer.answer }}</p>
+          </a>
+        </li>
+      </ul>
+      <div class="timer row">
+        <i class="ion-ios-stopwatch-outline col"></i>
+        <div class="col col-90">
+          <div class="loader " ng-style="timerStyle"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="response" ng-show="win == 'win' || win == 'loose'">
+      <div class="win" ng-show="win == 'win'">
+        <h4>Bonne réponse !</h4>
+        <p>Vous gagnez</p>
+        <p><span>15</span> pts</p>
+        <h4>Invitez vos amis à rallier votre cause</h4>
+      </div>
+
+      <div class="loose" ng-show="win == 'loose'">
+        <h4>Mauvaise réponse !</h4>
+        <p>Vous perdez</p>
+        <p><span>15</span> pts</p>
+        <h4>Rien n'est perdu !</h4>
+        <p>Retentez votre chance</p>
+        <a href="#/app/defi" class="button red">Défier</a>
+      </div>
+
+      <a href="#/app/dashboard" class="button blue">Terminer</a>
+    </div>
+
+  </ion-content>
+</ion-view>

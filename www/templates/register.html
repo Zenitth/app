@@ -1,44 +1,49 @@
-<ion-view view-title="Inscription">
-  <ion-content class="bg-white register padding">
+<ion-view view-title="Inscription" class="register" hide-nav-bar="true">
+  <ion-content>
+
+  <h1>Inscription</h1>
     
     <form>
-	  	<div class="list">
-			<label class="item item-input">
-				<span class="input-label">Pseudo</span>
-				<input type="text" ng-model="register.username" required>
-			</label>
-			<label class="item item-input">
-				<span class="input-label">Adresse email</span>
-				<input type="text" validate-email ng-model="register.email" required>
-			</label>
-			<label class="item item-input">
-				<span class="input-label">Mot de passe</span>
-				<input type="password" ng-model="register.password" required>
-			</label>
-			<label class="item item-input">
-				<span class="input-label">Confirmation du mot</span>
-				<input type="password" ng-model="register.password_confirm" required>
-			</label>
-			<label class="item item-input">
-				<span class="input-label">Date de naissance (JJ/MM/AAAA)</span>
-				<input type="text" ng-model="register.birthday" required>
-			</label>
-			<label class="item item-input">
-				<span class="input-label">Marque favorite</span>
-				<select ng-model="register.brand">
-					<option ng-repeat="brand in brands" value="{{ brand.id }}">{{ brand.nom }}</option>
-				</select>
-			</label>
-			<label class="item item-input">
-				<span class="input-label">Sexe</span>
-				<select ng-model="register.sex">
-					<option value="femme">Femme</option>
-					<option value="homme">Homme</option>
-				</select>
-			</label>
-			<input type="submit" value="S'inscrire" class="button" ng-click="doRegister()">
+		<div>
+			<i class="ion-bookmark"></i>
+			<input type="text" placeholder="Pseudo" ng-model="register.username" required>
 		</div>
+		<div>
+			<i class="ion-paper-airplane"></i>
+			<input type="text"  placeholder="Adresse email" validate-email ng-model="register.email" required>
+		</div>
+		<div>
+			<i class="ion-key"></i>
+			<input type="password"  placeholder="Mot de passe" ng-model="register.password" required>
+		</div>
+		<div>
+			<i class="ion-key"></i>
+			<input type="password"  placeholder="Confirmation mot de passe" ng-model="register.password_confirm" required>
+		</div>
+		<div>
+			<i class="ion-calendar"></i>
+			<input type="text"  placeholder="Date de naissance (jj/mm/aaaa)" ng-model="register.birthday" required>
+		</div>
+		<div>
+			<i class="ion-flag"></i>
+			<select  placeholder="Marque" ng-model="register.brand">
+				<option selected>Marque</option>
+				<option ng-repeat="brand in brands" value="{{ brand.id }}">{{ brand.nom }}</option>
+			</select>
+		</div>
+		<div>
+			<i class="ion-person"></i>
+			<select  placeholder="Sexe"  ng-model="register.sex">
+				<option value="femme" selected>Femme</option>
+				<option value="homme">Homme</option>
+			</select>
+		</div>
+		<input type="submit" value="S'inscrire" class="button red" ng-click="doRegister()">
 	</form>
+	<p class="inscription">
+	  <span>Déjà un compte ? </span>
+	  <a href="#/app/login">Se connecter</a>
+	</p>
 
   </ion-content>
 </ion-view>

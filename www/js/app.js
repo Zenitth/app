@@ -6,7 +6,7 @@
 // 'starter.controllers' is found in controllers.js
 angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', 'ngCordova'])
 
-.run(function($ionicPlatform, $rootScope, $state, $http) {
+.run(function($ionicPlatform, $rootScope, $state, $http, $ionicLoading) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -37,7 +37,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
 
             // refresh token
             expire = new Date().getTime() + (3600*1000);
-            getter = "http://zenitth.local/app_dev.php/oauth/v2/token?client_id=" + token.clientId + "&client_secret=" + token.secretId + "&grant_type=refresh_token&refresh_token=" + accessToken.refreshToken;
+            getter = "http://192.168.0.11/zenitth/zenitth-server/web/oauth/v2/token?client_id=" + token.clientId + "&client_secret=" + token.secretId + "&grant_type=refresh_token&refresh_token=" + accessToken.refreshToken;
             $http.get(getter).success( function(data, status, headers, config) {
               accessTokens = angular.toJson({
                 'token': data.access_token, 
@@ -58,7 +58,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
 
           // Get access token
           expire = new Date().getTime() + (3600*1000);
-          getter = "http://zenitth.local/app_dev.php/oauth/v2/token?grant_type=http://zenitth.com/grants/api_key&client_id=" + 
+          getter = "http://192.168.0.11/zenitth/zenitth-server/web/oauth/v2/token?grant_type=http://zenitth.com/grants/api_key&client_id=" + 
           token.clientId + "&client_secret=" + token.secretId + "&api_key=" + token.key;
 
           $http.get(getter).success( function(data, status, headers, config) {
@@ -81,9 +81,33 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
      
   });
 
+  $rootScope.$on('loading:show', function() {
+    $ionicLoading.show({template: '<ion-spinner class="spinner-calm"></ion-spinner>'})
+  });
+
+  $rootScope.$on('loading:hide', function() {
+    $ionicLoading.hide()
+  });
+
 })
 
-.config(function($stateProvider, $urlRouterProvider) {
+.config(function($stateProvider, $urlRouterProvider, $httpProvider) {
+
+   $httpProvider.interceptors.push(function($rootScope) {
+    return {
+      request: function(config) {
+        $rootScope.$broadcast('loading:show')
+        return config
+      },
+      response: function(response) {
+        $rootScope.$broadcast('loading:hide')
+        return response
+      }
+    }
+  });
+
+
+
   $stateProvider
 
   .state('app', {
@@ -135,15 +159,60 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
     }
   })
 
-  .state('app.single', {
-    url: "/playlists/:playlistId",
+  .state('app.defi', {
+    url: "/defi",
+    authenticate: true,
     views: {
       'menuContent': {
-        templateUrl: "templates/playlist.html",
-        controller: 'PlaylistCtrl'
+        templateUrl: "templates/defi.html",
+        controller: 'DefiCtrl'
+      }
+    }
+  })
+
+  .state('app.defivalidation', {
+    url: "/defivalidate",
+    authenticate: true,
+    views: {
+      'menuContent': {
+        templateUrl: "templates/defi-validation.html",
+      }
+    }
+  })
+
+  .state('app.notifications', {
+    url: "/notifications",
+    authenticate: true,
+    views: {
+      'menuContent': {
+        templateUrl: "templates/notifications.html",
+        controller: 'NotificationsCtrl'
+      }
+    }
+  })
+
+  .state('app.defirequest', {
+    url: "/defilaunch/:id",
+    authenticate: true,
+    views: {
+      'menuContent': {
+        templateUrl: "templates/request-defi.html",
+        controller: 'DefirequestCtrl'
+      }
+    }
+  })
+
+  .state('app.defiquestion', {
+    url: "/defi/question/:id",
+    authenticate: true,
+    views: {
+      'menuContent': {
+        templateUrl: "templates/defi-question.html",
+        controller: 'DefiquestionCtrl'
       }
     }
   });
+
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/app/query');
+  $urlRouterProvider.otherwise('/app/dashboard');
 });

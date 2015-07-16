@@ -1,9 +1,11 @@
-<ion-view view-title="Playlists">
-  <ion-content>
-    <ion-list>
-      <ion-item ng-repeat="playlist in playlists" href="#/app/playlists/{{playlist.id}}">
-        {{playlist.title}}
-      </ion-item>
-    </ion-list>
+<ion-view view-title="Dashboard" hide-back-button="true" class="dashboard">
+  <ion-content class="padding">
+    <h1>Dashboard</h1>
+    <a href="#/app/notifications">Notifications</a>
   </ion-content>
+
+	<div class="tabs">
+		<a class="tab-item" href="#/app/query">Quiz</a>
+		<a class="tab-item" href="#/app/defi">Défi</a>
+	</div>
 </ion-view>

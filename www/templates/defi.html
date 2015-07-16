@@ -1,0 +1,15 @@
+<ion-view view-title="Défi">
+  <ion-content class="padding">
+    <h1>Défi</h1>
+
+    <p>Vous allez défier un fan de {{ defi.userTo.user_brand.nom }}</p>
+    <div class="user-to-defi">
+    	<h3>{{ defi.userTo.username }}</h3>
+    	<p>{{ defi.userTo.score }} Pts</p>
+    </div>
+    <h2>Choisissez une question à lui poser</h2>
+
+    <button class="btn" ng-repeat="question in defi.questions" ng-click="validateDefi(question.id)">{{ question.question }}</button>
+
+  </ion-content>
+</ion-view>

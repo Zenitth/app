@@ -1,0 +1,17 @@
+<ion-view view-title="Défi" class="request-defi" hide-back-button="true" cache-view="false">
+  <h1><a href="#/app/notifications" class="left" nav-transition="none"><i class="ion-ios-arrow-back"></i></a>Défi</h1>
+  
+  <ion-content>
+    <h3>Un fan de <span>{{ defi.user_from.user_brand.nom }}</span> vient de vous défier :</h3>
+
+    <div class="infos-user">
+      <img src="img/avatars/geek.png">
+      <h4>{{ defi.user_from.username }}</h4>
+      <p class="pts"><span>{{ defi.user_from.score }}</span> pts</p>
+    </div>
+    <div class="citation">
+      <p>“C’est dans la force de la rage que réside la vérité.” </p>
+    </div>
+    <a ng-href="#/app/defi/question/{{ defi.id }}" class="agree">Accepter le défi</a>
+  </ion-content>
+</ion-view>
