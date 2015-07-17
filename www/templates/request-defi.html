@@ -2,7 +2,7 @@
   <h1><a href="#/app/notifications" class="left"><i class="ion-ios-arrow-back"></i></a>Défi</h1>
   
   <ion-content>
-    <h3>Un fan de <span>{{ defi.user_from.user_brand.nom }}</span> vient de vous défier :</h3>
+    <h3>Un fan de <span>{{ defi.user_from.user_brand.nom }}</span> vous défie.</h3>
 
     <div class="infos-user">
       <img src="img/avatars/geek.png">
@@ -11,7 +11,7 @@
     </div>
     <div class="citation">
       <p>“C’est dans la force de la rage que réside la vérité.” </p>
+      <a ng-href="#/app/defi/question/{{ defi.id }}" class="agree">Accepter le défi</a>
     </div>
-    <a ng-href="#/app/defi/question/{{ defi.id }}" class="agree">Accepter le défi</a>
   </ion-content>
 </ion-view>

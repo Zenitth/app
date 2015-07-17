@@ -281,7 +281,8 @@ ion-content {
 			color: white;
 			font-weight: bold;
 			text-decoration: none;
-			background: #f93e5d;
+			background: #1c263f;
+			margin-top: 20px;
 		}
 	}
 }
@@ -346,7 +347,7 @@ ion-content {
 
 				&:after {
 					display: block;
-					width: 15px;
+					width: 13px;
 					height: 50%;
 					border-bottom: 1px solid white;
 					box-sizing: border-box;
@@ -444,6 +445,20 @@ ion-content {
 
 				span {
 					color: #f93e5d;
+				}
+
+				&.badge {
+					width: 70px;
+					height: 70px;
+					margin: 10px 0;
+					box-sizing: border-box;
+					background: #f93e5d;
+					color: white;
+					padding: 8px;
+					border-radius: 50%;
+					font-weight: bold;
+					line-height: 3.1rem;
+					span { color: white; }
 				}
 			}
 		}

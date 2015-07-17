@@ -22,7 +22,7 @@
         <div class="loader " ng-style="timerStyle"></div>
       </div>
     </div>
-    
+
     <div class="questions" ng-show="win == ''">
       <ul>
         <li class="clearfix" ng-repeat="answer in defi.question.answers">
@@ -37,15 +37,16 @@
     <div class="response" ng-show="win == 'win' || win == 'loose'">
       <div class="win" ng-show="win == 'win'">
         <h4>Bonne réponse !</h4>
-        <p>Vous gagnez</p>
-        <p><span>15</span> pts</p>
+        <p>Vous gagnez des points</p>
+        <p class="badge"><span>15</span> pts</p>
         <h4>Invitez vos amis à rallier votre cause</h4>
+        <a href="#/app/dashboard" class="button red">Partager</a>
       </div>
 
       <div class="loose" ng-show="win == 'loose'">
         <h4>Mauvaise réponse !</h4>
-        <p>Vous perdez</p>
-        <p><span>15</span> pts</p>
+        <p>Vous perdez des points :</p>
+        <p class="badge"><span>- 15 </span> pts</p>
         <h4>Rien n'est perdu !</h4>
         <p>Retentez votre chance</p>
         <a href="#/app/defi" class="button red">Défier</a>

@@ -40,11 +40,13 @@
       <div class="win" ng-show="isWin == true">
         <h4>Bonne réponse !</h4>
         <p>Vous gagnez</p>
-        <p><span>15</span> pts</p>
+        <p class="badge"><span>5</span> pts</p>
       </div>
 
       <div class="loose" ng-show="isWin == false">
         <h4>Mauvaise réponse !</h4>
+        <p>Vous gagnez</p>
+        <p class="badge"><span>0</span> pts</p>
       </div>
 
       <a href="" ng-click="next()" class="button blue">Suivant</a>
@@ -53,7 +55,7 @@
    <div class="end" ng-show="end == true">
    		<h4>Le quiz est terminé</h4>
       <p>Vous gagnez</p>
-      <p><span>{{ currentPts }}</span> pts</p>
+      <p class="badge"><span>{{ currentPts }}</span> pts</p>
       <a href="" ng-click="finish()" class="button blue">Terminer</a>
    </div>
 

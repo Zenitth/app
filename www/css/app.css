@@ -9071,7 +9071,8 @@ ion-content .button {
     color: white;
     font-weight: bold;
     text-decoration: none;
-    background: #f93e5d; }
+    background: #1c263f;
+    margin-top: 20px; }
 
 .defi-question h1 div,
 .quizz h1 div {
@@ -9154,7 +9155,7 @@ ion-content .button {
       .defi-question ion-content ul.timeline li:after,
       .quizz ion-content ul.timeline li:after {
         display: block;
-        width: 15px;
+        width: 13px;
         height: 50%;
         border-bottom: 1px solid white;
         box-sizing: border-box;
@@ -9254,6 +9255,25 @@ ion-content .button {
       .quizz ion-content .response p span,
       .quizz ion-content .end p span {
         color: #f93e5d; }
+      .defi-question ion-content .response p.badge,
+      .defi-question ion-content .end p.badge,
+      .quizz ion-content .response p.badge,
+      .quizz ion-content .end p.badge {
+        width: 70px;
+        height: 70px;
+        margin: 10px 0;
+        box-sizing: border-box;
+        background: #f93e5d;
+        color: white;
+        padding: 8px;
+        border-radius: 50%;
+        font-weight: bold;
+        line-height: 3.1rem; }
+        .defi-question ion-content .response p.badge span,
+        .defi-question ion-content .end p.badge span,
+        .quizz ion-content .response p.badge span,
+        .quizz ion-content .end p.badge span {
+          color: white; }
 
 .defi ion-content {
   top: 55px;
