@@ -37,7 +37,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
 
             // refresh token
             expire = new Date().getTime() + (3600*1000);
-            getter = "http://zenitth.com/app_dev.php/oauth/v2/token?client_id=" + token.clientId + "&client_secret=" + token.secretId + "&grant_type=refresh_token&refresh_token=" + accessToken.refreshToken;
+            getter = "http://zenitth.com/oauth/v2/token?client_id=" + token.clientId + "&client_secret=" + token.secretId + "&grant_type=refresh_token&refresh_token=" + accessToken.refreshToken;
             $http.get(getter).success( function(data, status, headers, config) {
               accessTokens = angular.toJson({
                 'token': data.access_token, 
@@ -58,7 +58,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
 
           // Get access token
           expire = new Date().getTime() + (3600*1000);
-          getter = "http://zenitth.com/app_dev.php/oauth/v2/token?grant_type=http://zenitth.com/grants/api_key&client_id=" + 
+          getter = "http://zenitth.com/oauth/v2/token?grant_type=http://zenitth.com/grants/api_key&client_id=" + 
           token.clientId + "&client_secret=" + token.secretId + "&api_key=" + token.key;
 
           $http.get(getter).success( function(data, status, headers, config) {
