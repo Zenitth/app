@@ -1,8 +1,49 @@
 <ion-view view-title="Dashboard" hide-back-button="true" class="dashboard">
-  <ion-content class="padding">
-    <h1>Dashboard</h1>
-    <a href="#/app/notifications">Notifications</a>
-  </ion-content>
+  
+  	<ion-content class="">
+	    <header class="row">
+	    	<div class="col col-20">
+	    		<a href="#/app/dashboard" class="left">
+	    			<i class="ion-person"></i>
+	    			<p>Profil</p>
+	    		</a>
+	    	</div>
+	    	<div class="col col-60">
+	    		<p>{{ dashboard.me.user_brand.nom }}</p>
+	    		<p>1<SUP> er</SUP></p>
+	    	</div>
+	    	<div class="col col-20">
+	    		<a href="#/app/notifications" class="left">
+	    			<i class="ion-bookmark"></i>
+	    			<p>Notif</p>
+	    			<span class="notif"></span>
+	    		</a>
+	    	</div>
+	    </header>
+
+  		<div class="infos">
+  			<img src="img/avatars/{{ dashboard.me.user_brand.nom }}.png">
+  			<div class="numbers row">
+  			<div class="col col-33"><p>57</p><p>Défis</p></div>
+  			<div class="col col-33"><p>{{ dashboard.fan }}</p><p>Fans</p></div>
+  			<div class="col col-33"><p>88</p><p>Quizz</p></div>
+  			</div>
+  		</div>
+
+  		<div class="dashboard-wrapper">
+  			<div class="row">
+  				<div class="col col-33"><img src="img/backgrounds/hp/classement.jpg"></div>
+  				<div class="col col-67"><img src="img/backgrounds/hp/evolution.jpg"></div>
+  			</div>
+  			<div class="row">
+  				<div class="col col-1"><img src="img/backgrounds/hp/technologie.jpg"></div>
+  			</div>
+  			<div class="row">
+  				<div class="col col-1"><img src="img/backgrounds/hp/culture.jpg"></div>
+  			</div>
+  		</div>
+
+  	</ion-content>
 
 	<div class="tabs">
 		<a class="tab-item" href="#/app/query">Quiz</a>

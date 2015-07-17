@@ -1,5 +1,5 @@
 <ion-view view-title="Notifications" class="notifications" hide-back-button="true" hide-nav-bar="true" cache-view="false">
-  <h1>Notifications<a href="#/app/dashboard" class="left" nav-transition="none"><i class="ion-ios-arrow-back"></i></a></h1>
+  <h1>Notifications<a href="#/app/dashboard" class="left"><i class="ion-ios-arrow-back"></i></a></h1>
   <ion-content>
 
     <div class="list">
@@ -11,7 +11,10 @@
       >
         <img ng-src="img/avatars/{{ notification.user_from.sexe }}.png">
         <h2><span>{{ notification.user_from.username }}</span> {{ notification.text }}</h2>
-        <p><span class="date">{{ getMoment(notification.created_at) }}</p>
+        <p>
+          <span class="date">{{ getMoment(notification.created_at) }}</span>
+          <span class="isread" ng-class="{'read' : notification.defi.is_answered }"></span>
+        </p>
       </a>
     </div>
     

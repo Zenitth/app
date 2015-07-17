@@ -21,7 +21,7 @@ angular.module('starter.controllers', [])
         $http({
               method: 'POST',
               headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-              url: 'http://zenitth.local/app_dev.php/account/logins',
+              url: 'http://192.168.15.159/zenitth/zenitth-server/web/account/logins',
               data: serialize.serializeData($scope.login)
             })
             .success( function (data, status, headers, config) {
@@ -60,7 +60,7 @@ angular.module('starter.controllers', [])
 
     $http({
         method: 'GET',
-        url: 'http://zenitth.local/app_dev.php/account/brands'
+        url: 'http://192.168.15.159/zenitth/zenitth-server/web/account/brands'
       })
       .success( function (data, status, headers, config) {
         $scope.brands = data;
@@ -80,7 +80,7 @@ angular.module('starter.controllers', [])
             $http({
               method: 'POST',
               headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-              url: 'http://zenitth.local/app_dev.php/account/registers',
+              url: 'http://192.168.15.159/zenitth/zenitth-server/web/account/registers',
               data: serialize.serializeData($scope.register)
             })
             .success( function (data, status, headers, config) {
@@ -118,7 +118,7 @@ angular.module('starter.controllers', [])
     access_token = JSON.parse(window.localStorage.getItem('accessToken')).token;
     $http({
       method: 'GET',
-      url: 'http://zenitth.local/app_dev.php/api/quizz?access_token=' + access_token,
+      url: 'http://192.168.15.159/zenitth/zenitth-server/web/api/quizz?access_token=' + access_token,
     })
     .success( function (data, status, headers, config) {
       $scope.questions = data.questions;
@@ -166,7 +166,7 @@ angular.module('starter.controllers', [])
       $http({
         method: 'POST',
         headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-        url: 'http://zenitth.local/app_dev.php/api/scores?access_token=' + access_token,
+        url: 'http://192.168.15.159/zenitth/zenitth-server/web/api/scores?access_token=' + access_token,
         data: serialize.serializeData({'score' : $scope.currentPts })
       })
       .success( function (data, status, headers, config) {
@@ -204,13 +204,15 @@ angular.module('starter.controllers', [])
    */
   .controller('DashboardCtrl', function($scope, $stateParams, $state, $http) {
 
+    $scope.dashboard = {};
     access_token = JSON.parse(window.localStorage.getItem('accessToken')).token;
     $http({
       method: 'GET',
-      url: 'http://zenitth.local/app_dev.php/api/dashboard?access_token=' + access_token,
+      url: 'http://192.168.15.159/zenitth/zenitth-server/web/api/dashboard?access_token=' + access_token,
     })
     .success( function (data, status, headers, config) {
-     console.log(data);
+     $scope.dashboard = data;
+     console.log($scope.dashboard);
     })
     .error( function(data, status, headers, config) {
       $scope.error = data;
@@ -232,7 +234,7 @@ angular.module('starter.controllers', [])
     access_token = JSON.parse(window.localStorage.getItem('accessToken')).token;
     $http({
       method: 'GET',
-      url: 'http://zenitth.local/app_dev.php/api/defi/question?access_token=' + access_token,
+      url: 'http://192.168.15.159/zenitth/zenitth-server/web/api/defi/question?access_token=' + access_token,
     })
     .success( function (data, status, headers, config) {
      $scope.defi = data;
@@ -251,7 +253,7 @@ angular.module('starter.controllers', [])
       $http({
         method: 'POST',
         headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-        url: 'http://zenitth.local/app_dev.php/api/defis/validates?access_token=' + access_token,
+        url: 'http://192.168.15.159/zenitth/zenitth-server/web/api/defis/validates?access_token=' + access_token,
         data: serialize.serializeData({'userTo' : $scope.defi.userTo.id, 'question' : $scope.selected })
       })
       .success( function (data, status, headers, config) {
@@ -275,7 +277,7 @@ angular.module('starter.controllers', [])
     access_token = JSON.parse(window.localStorage.getItem('accessToken')).token;
     $http({
       method: 'GET',
-      url: 'http://zenitth.local/app_dev.php/api/notifications?access_token=' + access_token,
+      url: 'http://192.168.15.159/zenitth/zenitth-server/web/api/notifications?access_token=' + access_token,
     })
     .success( function (data, status, headers, config) {
      $scope.notifications = data;
@@ -301,7 +303,7 @@ angular.module('starter.controllers', [])
     access_token = JSON.parse(window.localStorage.getItem('accessToken')).token;
     $http({
       method: 'GET',
-      url: 'http://zenitth.local/app_dev.php/api/defis/' + id + '?access_token=' + access_token,
+      url: 'http://192.168.15.159/zenitth/zenitth-server/web/api/defis/' + id + '?access_token=' + access_token,
     })
     .success( function (data, status, headers, config) {
      $scope.defi = data;
@@ -365,7 +367,7 @@ angular.module('starter.controllers', [])
       $http({
         method: 'POST',
         headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-        url: 'http://zenitth.local/app_dev.php/api/responses/defis?access_token=' + access_token,
+        url: 'http://192.168.15.159/zenitth/zenitth-server/web/api/responses/defis?access_token=' + access_token,
         data: serialize.serializeData(data)
       })
       .success( function (data, status, headers, config) {
@@ -384,7 +386,7 @@ angular.module('starter.controllers', [])
     $scope.defi = {};
     $http({
       method: 'GET',
-      url: 'http://zenitth.local/app_dev.php/api/defis/' + id + '?access_token=' + access_token,
+      url: 'http://192.168.15.159/zenitth/zenitth-server/web/api/defis/' + id + '?access_token=' + access_token,
     })
     .success( function (data, status, headers, config) {
       $scope.defi = data;
