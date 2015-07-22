@@ -114,6 +114,7 @@ angular.module('starter.controllers', [])
     $scope.selectedIndex = -1;
     $scope.isWin = -1;
     $scope.end = false;
+    $scope.good = "";
 
     access_token = JSON.parse(window.localStorage.getItem('accessToken')).token;
     $http({
@@ -147,6 +148,7 @@ angular.module('starter.controllers', [])
         } else {
           console.log('loose');
           $scope.isWin = false;
+          $scope.good = _.where($scope.currentQuestion.answers, {'is_true' : true});
         }
         $scope.timerStyle = {'webkitAnimationPlayState' : 'initial', 'transition-duration' : '0s'};
       }, 5000);
@@ -328,6 +330,7 @@ angular.module('starter.controllers', [])
     $scope.selectedResponse = {};
     $scope.pts = -15;
     $scope.win = "";
+    $scope.good = "";
     access_token = JSON.parse(window.localStorage.getItem('accessToken')).token;
 
     $scope.valid = function(a, index) {
@@ -375,6 +378,7 @@ angular.module('starter.controllers', [])
           $scope.win = "win";
         } else {
           $scope.win = "loose";
+          $scope.good = _.where($scope.defi.question.answers, {'is_true' : true});
         }
         console.log($scope.win);
       })
